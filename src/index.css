@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  width: 100vw;
+  height: 100dvh;
+  font-family: monospace;
+  overflow-x: hidden;
+}
+* {
+  transition: background-color 0.2s;
+  scroll-behavior: smooth;
+}
+#root {
+  width: 100vw;
+  height: 100dvh;
+}
+
+.charge {
+  animation: charge 0.7s;
+}
+@keyframes charge {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+h3 {
+  @apply text-xl font-bold max-[400px]:text-lg;
+}
+p {
+  @apply text-base max-[600px]:text-sm max-[400px]:text-xs max-[310px]:text-[10px];
+}
+
+a {
+  text-decoration-line: underline;
+  cursor: pointer;
+  @apply opacity-100 hover:opacity-80 text-base max-[600px]:text-sm max-[400px]:text-xs;
+}
+*::-webkit-scrollbar {
+  width: 2px;
+  color: transparent;
+  background-color: #151515;
+}
+*::-webkit-scrollbar-thumb {
+  color: transparent;
+  background-color: #303030;
+}
+button {
+  cursor: pointer;
+}
+.same-page {
+  text-decoration: none;
+}
+
