@@ -18,8 +18,8 @@ function PostTailwind() {
 .bg-[#2E3440] {
   background-color: #581C87;
 }
-.text-white {
-  color: #fff;
+.text-blue-100 {
+  color: #DBEAFE;
 }`,
       buttonClass: `bg-[#2E3440] text-blue-100`,
     },

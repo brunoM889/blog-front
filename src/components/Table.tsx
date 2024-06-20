@@ -1,16 +1,17 @@
 import { PostsType } from "../posts/posts-data";
 import "../index.css";
 import { useAppState } from "../store/store";
-
+import { lineSpinner } from "ldrs";
 interface Props {
   posts: PostsType;
   setOpenPost: (id: number) => void;
   setPosts: (posts: PostsType) => void;
+  loading: boolean;
 }
 
-function PostsTable({ posts, setOpenPost, setPosts }: Props): JSX.Element {
+function Table({ posts, setOpenPost, setPosts, loading }: Props): JSX.Element {
   const { lang, theme } = useAppState();
-
+  lineSpinner.register();
   const openPost = async (postId: number) => {
     try {
       setPosts(
@@ -73,9 +74,18 @@ function PostsTable({ posts, setOpenPost, setPosts }: Props): JSX.Element {
                 {lang ? post.eng.title : post.esp.title}
               </div>
               <div className="w-fit text-end opacity-80 pl-2">
-                {new Intl.NumberFormat(lang ? "en-US" : "es-ES", {
-                  maximumSignificantDigits: 3,
-                }).format(post.views)}
+                {!loading ? (
+                  new Intl.NumberFormat(lang ? "en-US" : "es-ES", {
+                    maximumSignificantDigits: 3,
+                  }).format(post.views)
+                ) : (
+                  <l-line-spinner
+                    size="16"
+                    stroke="2"
+                    speed="1"
+                    color="currentColor"
+                  ></l-line-spinner>
+                )}
               </div>
             </li>
           );
@@ -85,4 +95,4 @@ function PostsTable({ posts, setOpenPost, setPosts }: Props): JSX.Element {
   );
 }
 
-export default PostsTable;
+export default Table;

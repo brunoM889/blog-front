@@ -1,14 +1,17 @@
 import { PostType } from "../posts/posts-data";
 import PostTailwind from "../posts/tailwind-post/PostTailwind";
 import { useAppState } from "../store/store";
+import { lineSpinner } from "ldrs";
 
 interface Params {
   posts: PostType[];
   openPost: number;
+  loading: boolean;
 }
 
-function Post({ posts, openPost }: Params) {
+function PostLayout({ posts, openPost, loading }: Params) {
   const { lang } = useAppState();
+  lineSpinner.register();
 
   const ListOfPostsComponents = [<PostTailwind />];
 
@@ -23,9 +26,19 @@ function Post({ posts, openPost }: Params) {
             {lang ? posts[openPost].eng.date : posts[openPost].esp.date}
           </p>
           <p className="text-xs">
-            {new Intl.NumberFormat(lang ? "en-US" : "es-ES", {
-              maximumSignificantDigits: 3,
-            }).format(posts[openPost].views)}
+            {!loading ? (
+              new Intl.NumberFormat(lang ? "en-US" : "es-ES", {
+                maximumSignificantDigits: 3,
+              }).format(posts[openPost].views)
+            ) : (
+              // Default values shown
+              <l-line-spinner
+                size="16"
+                stroke="2"
+                speed="1"
+                color="currentColor"
+              ></l-line-spinner>
+            )}
             {"  "}
             {lang ? "views" : "vistas"}
           </p>
@@ -37,4 +50,4 @@ function Post({ posts, openPost }: Params) {
   );
 }
 
-export default Post;
+export default PostLayout;
